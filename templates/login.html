@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+	<head>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+		<link rel="stylesheet" href="/static/css/reset.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+	</head>
+
+</head>
+<body>
+<header>		
+				
+	<h3>
+		<img src="https://500.co/wp-content/uploads/2015/02/logo-535fbf91c21e3757256506c2.png" width="30" height="30" alt="logo" />
+		Restaurant Catalogue
+	
+	</h3>
+</header>
+<div id="signinButton">
+          <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="71420721369-9go42k1eji92kan60um0agnl4brukgpk.apps.googleusercontent.com"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+          </span>
+</div>
+        <div id="result"></div>
+        <script>
+        	function signInCallback(authResult){
+        		if(authResult['code']){
+        			$('#signinButton').attr('style', 'display:none');
+        			$.ajax({
+        				type: 'POST',
+        				url: '/gconnect?state={{STATE}}',
+        				processData: false,
+        				contentType: 'application/octet-stream; charset=utf-8',
+        				data: authResult['code'],
+        				success: function(result){
+        					if(result){
+        						$('#result').html('Login success</br>' + result +'<br> redirecting.....')
+        						setTimeout(function(){
+        							window.location.href ="/restaurants";
+        						}, 1000);
+        					} else if(authResult['error']){
+        						console.log('there was a error' + authResult['error']);
+        					} else {
+        						$('#result').html('Failed to make a server call');
+        					}
+        				}
+        			});//ajax 
+        		
+        		}//if authresult ending
+        	}//sign in call back closing
+        </script>
+
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1886819434965437',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.2
+  });
+  };
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function sendTokenToServer() {
+    var access_token = FB.getAuthResponse()['accessToken'];
+    console.log(access_token)
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log('Successful login for: ' + response.name);
+     $.ajax({
+      type: 'POST',
+      url: '/fbconnect?state={{STATE}}',
+      processData: false,
+      data: access_token,
+      contentType: 'application/octet-stream; charset=utf-8',
+      success: function(result) {
+        // Handle or verify the server response if necessary.
+        if (result) {
+          $('#result').html('Login Successful!</br>'+ result + '</br>Redirecting...')
+         setTimeout(function() {
+          window.location.href = "/restaurants";
+         }, 1000);
+          
+      } else {
+        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+         }
+      }
+      
+  });
+    });
+  }
+</script>
+<fb:login-button scope="public_profile,email" data-size="large" onlogin="sendTokenToServer();">
+<a href='javascript:sendTokenToServer()'>Login</a>
+</fb:login-button>
+</body>
+</html>

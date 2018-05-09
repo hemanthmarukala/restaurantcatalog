@@ -1,0 +1,59 @@
+</!DOCTYPE html>
+<html>
+	<head>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+	<header>
+		<h3>
+			<img src="https://500.co/wp-content/uploads/2015/02/logo-535fbf91c21e3757256506c2.png" width="30" height="30" alt="logo" />
+			Restaurant Catalogue
+			<div class ='price'>
+				<a href ='{{url_for('logout')}} '>Logout</a>
+			</div>
+		</h3>
+	</header>
+	<h1>Edit Menu Item</h1>
+		<form action ="{{url_for('editMenuItem', restaurant_id = restaurant_id, menu_id= i.id)}}", method ='post'>
+			
+			<dl>
+				<dt>Name:</dt>
+					<dd><input type='text', name='name', placeholder='{{i.name}}'></dd>
+				<dt>Description:</dt>
+					<dd><textarea name='Description', row="5", cols="40", placeholder='{{i.description}}'></textarea></dd>
+				<dt>Price</dt>
+					<dd><input type ='text' size='8' name='price' placeholder="{{i.price}}"></dd>
+				<dt>Course:</dt>
+					{% if i.course == 'Appetizier' %}
+					<dd><input type ='radio' name='course' value='Appetizer'checked >Appetizer</dd>
+					{%else%}
+					<dd><input type ='radio' name='course' value='Appetizer' >Appetizer</dd>
+	    			{% endif %}
+
+	    			{% if i.course == 'Entree' %}
+	       			<dd><input type ='radio' name='course' value='Entree' checked>Entree</dd>
+	    			{%else%}
+					<dd><input type ='radio' name='course' value='Entree'>Entree</dd>
+	    			{% endif %}
+
+					{% if i.course == 'Dessert'%}
+					<dd><input type ='radio' name='course' value='Dessert'checked >Dessert</dd>
+
+					{% else %}
+		   			<dd><input type ='radio' name='course' value='Dessert'>Dessert</dd>
+
+					{% endif %}
+
+
+					{%if i.course =='Beverage'%}
+					<dd><input type ='radio' name='course' value='Beverage'checked >Beverage</dd>
+					{% else %}
+					<dd><input type ='radio' name='course' value='Beverage'>Beverage</dd>
+					{% endif %}
+
+			</dl>	
+			<input type ='submit', value = 'Edit'>
+			<a href="{{url_for('restaurants_list',restaurant_id= i.restaurant_id)}}">Cancel</a>	
+		</form>
+	</body>
+</html>

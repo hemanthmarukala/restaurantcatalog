@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	<title></title>
+</head>
+<body>
+<header>
+	<h3>
+		<img src="https://500.co/wp-content/uploads/2015/02/logo-535fbf91c21e3757256506c2.png" width="30" height="30" alt="logo" />
+		Restaurant Catalogue
+		<div class ='price'>
+			<a href ='{{url_for('logout')}} '>Logout</a>
+		</div>
+	</h3>			
+</header>
+	<div>
+			<h1>New Restaurant</h1>
+	</div>
+	<div class="pane">
+			<form action="{{url_for('newrestaurant')}}" method = "post">
+				
+				
+			Name:
+				<input type ='text' size='80' name='name'>
+				<input type = 'submit' value = 'Create'>
+				<a href ='{{url_for('restaurants_list')}}'>Back</a>
+			</form>
+			
+	</div>
+</body>
+</html>

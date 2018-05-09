@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+		<link rel="stylesheet" href="/static/css/reset.css?q=1280549780" type="text/css" media="screen" charset="utf-8" />
+	</head>
+	
+<body>
+<header>
+				<h3>
+					<img src="https://500.co/wp-content/uploads/2015/02/logo-535fbf91c21e3757256506c2.png" width="30" height="30" alt="logo" />
+
+				Restaurant Catalogue
+				<div class ='price'>
+				<a href ='{{url_for('logout')}} '>Logout</a>
+				</div>
+				</h3>
+</header>
+	<div class = 'pane'>
+	<h1>Restaurants List</h1>
+		</br>
+		<div class = 'flash'>
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<ul>
+				{% for message in messages %}
+				<li><strong> {{message}}</strong></li>
+				{% endfor %}
+				</ul>
+				{% endif %}
+				{% endwith %}
+		</div>
+		<a href ='{{url_for('newrestaurant')}}'><strong>Create New Restaurant</strong></a>		
+		</br>
+		</br>
+		{% for i in restaurants %}
+		<div class = 'nameandprice'>
+		<span class ='name'>{{i.name}}</span>
+		<span class ='price'><a href='{{url_for('restaurants_menu_list', restaurant_id= i.id)}}'>View Menu</a> </span>
+		</br>
+		</br>
+		</br>
+		{% endfor %}
+		{% for j in user_restaurants %}
+		
+			<span class ='name'>{{j.name}}</span>
+			<span class ='price'><a href='{{url_for('restaurants_menu_list', restaurant_id= j.id)}}'>View Menu</a> </span>
+			</br>
+			</br>
+			</br>
+			
+		{% endfor %}
+
+
+	</div>	
+	</body>
+</html>
+  
