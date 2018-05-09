@@ -1,0 +1,105 @@
+body {
+    font-family: sans-serif;
+    background-color: #cccccc;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: #000000;
+}
+
+h1,
+h2 {
+    font-family: 'georgia', serif;
+    margin: 0;
+}
+
+h1 {
+    border-bottom: 2px solid #333;
+}
+
+h2 {
+    font-size: 1.2em;
+}
+
+h3 {
+    font-size:2em;
+}
+
+p,
+dd,
+dt {
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    /*color: #ffffcc;*/
+    font-size: .75em;
+}
+
+#logo {
+            padding:10px;
+        }
+        
+}
+.pane {
+    position: relative;
+    border: 2px solid;
+    border-radius: 25px;
+    padding: 5px;
+    margin: 5px;
+    border-color: #999999;
+    background-color: #ffffff;
+}
+
+.header {
+    left: 50%;
+    text-align: center;
+}
+
+.name {
+    width: 50%;
+    display: inline-block;
+    float: left;
+    color: #000000
+}
+
+.description {}
+
+.price {
+    text-align: right;
+    width: 50%;
+    float: right;
+    color: #000000
+}
+
+.editdeletepane {}
+
+.flash {
+    background: #cee5f5;
+}
+.divider.green {
+    /*background-color: #9FB80A;*/
+}
+
+.glyphicon {
+    margin-right: 10px;
+}
+
+.padding-top {
+    padding-top: 30px;
+}
+.padding-bottom {
+    padding-bottom: 30px;
+}
+.margin-right {
+    margin-right: 30px;
+}
+.padding-none {
+    padding: 0;
+}
+
+
